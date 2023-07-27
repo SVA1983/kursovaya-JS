@@ -31,6 +31,8 @@ export const logout = () => {
   goToPage(POSTS_PAGE);
 };
 
+console.log(posts);
+
 /**
  * Включает страницу приложения
  */
