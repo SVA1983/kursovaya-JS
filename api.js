@@ -11,15 +11,29 @@ export function getPosts({ token }) {
       Authorization: token,
     },
   })
-    .then((response) => {
+    .then((response) => { 
       if (response.status === 401) {
         throw new Error("Нет авторизации");
       }
 
-      return response.json();
+      return response.json(); 
     })
     .then((data) => {
-      return data.posts;
+      return data.posts.map((post) => {  
+        return {
+          // id ?
+          imageUrl: post.imageUrl,
+          date: "2023-04-04T09:51:47.187Z",
+          description: post.description,
+          name: post.user.name,
+          login: post.user.login,
+          userImage: post.imageUrl,
+          likes: post.likes,
+          isLiked: false
+        }
+      })
+      
+        
     });
 }
 

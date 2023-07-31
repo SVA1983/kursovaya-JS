@@ -17,6 +17,7 @@ import {
 } from "./helpers.js";
 
 export let user = getUserFromLocalStorage();
+console.log(user);
 export let page = null;
 export let posts = [];
 
@@ -30,8 +31,6 @@ export const logout = () => {
   removeUserFromLocalStorage();
   goToPage(POSTS_PAGE);
 };
-
-console.log(posts);
 
 /**
  * Включает страницу приложения
@@ -57,18 +56,19 @@ export const goToPage = (newPage, data) => {
       renderApp();
 
       return getPosts({ token: getToken() })
-        .then((newPosts) => {
+        .then((newPosts) => { ;
           page = POSTS_PAGE;
           posts = newPosts;
           renderApp();
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
           goToPage(POSTS_PAGE);
         });
     }
 
     if (newPage === USER_POSTS_PAGE) {
+
       // TODO: реализовать получение постов юзера из API
       console.log("Открываю страницу пользователя: ", data.userId);
       page = USER_POSTS_PAGE;
@@ -121,7 +121,7 @@ const renderApp = () => {
 
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
-      appEl,
+      appEl, user
     });
   }
 
