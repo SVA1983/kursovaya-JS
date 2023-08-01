@@ -1,11 +1,11 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, user } from "../index.js";
+import { posts, goToPage, } from "../index.js";
 
 
 
 
-export function renderPostsPageComponent({ appEl, }) {
+export function renderPostsPageComponent({ appEl,}) {
   // TODO: реализовать рендер постов из api
   console.log("Актуальный список постов:", posts);
 
@@ -29,8 +29,8 @@ export function renderPostsPageComponent({ appEl, }) {
       <ul class="posts">
         <li class="post">
           <div class="post-header" data-user-id="642d00329b190443860c2f31">
-              <img src="${post.user.imageUrl}" class="post-header__user-image">
-              <p class="post-header__user-name">${post.user.name}</p>
+              <img src="${post.imageUrl}" class="post-header__user-image">
+              <p class="post-header__user-name">${post.name}</p>
           </div>
           <div class="post-image-container">
             <img class="post-image" src="${post.imageUrl}">
@@ -44,7 +44,7 @@ export function renderPostsPageComponent({ appEl, }) {
             </p>
           </div>
           <p class="post-text">
-            <span class="user-name">${post.user.name}</span>
+            <span class="user-name">${post.name}</span>
             ${post.description}
           </p>
           <p class="post-date">
@@ -54,7 +54,7 @@ export function renderPostsPageComponent({ appEl, }) {
       </ul>
     </div>`
     })
-               ;
+               ; 
   
     appEl.innerHTML = appHtml;
   }

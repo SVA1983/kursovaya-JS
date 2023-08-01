@@ -1,10 +1,11 @@
+
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "vlad-smirnov";
 const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
-export function getPosts({ token }) {
+export function getPosts({ token, }) {
   return fetch(postsHost, {
     method: "GET",
     headers: {
@@ -19,7 +20,7 @@ export function getPosts({ token }) {
       return response.json(); 
     })
     .then((data) => {
-      return data.posts.map((post) => {  
+      return data.posts.map((post) => {  console.log(post.user);
         return {
           // id ?
           imageUrl: post.imageUrl,
@@ -81,4 +82,20 @@ export function uploadImage({ file }) {
   }).then((response) => {
     return response.json();
   });
+}
+
+
+export const onAddPostClick = ({description, imageUrl, token }) => {
+  return fetch(postsHost,
+    {
+        method: "POST",
+        body: JSON.stringify(
+        { 
+          description: description,
+            imageUrl
+        }),
+        headers: {
+          Authorization: token,
+      },      
+    }); 
 }

@@ -1,4 +1,4 @@
-import { getPosts } from "./api.js";
+import { getPosts, onAddPostClick } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -17,11 +17,12 @@ import {
 } from "./helpers.js";
 
 export let user = getUserFromLocalStorage();
-console.log(user);
+
 export let page = null;
 export let posts = [];
 
-const getToken = () => {
+
+export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : undefined;
   return token;
 };
@@ -58,12 +59,13 @@ export const goToPage = (newPage, data) => {
       return getPosts({ token: getToken() })
         .then((newPosts) => { ;
           page = POSTS_PAGE;
-          posts = newPosts;
+          
+          posts = newPosts; console.log(posts);
           renderApp();
         })
         .catch((error) => {
           console.log(error);
-          goToPage(POSTS_PAGE);
+          // goToPage(POSTS_PAGE);
         });
     }
 
@@ -72,7 +74,7 @@ export const goToPage = (newPage, data) => {
       // TODO: реализовать получение постов юзера из API
       console.log("Открываю страницу пользователя: ", data.userId);
       page = USER_POSTS_PAGE;
-      posts = [];
+      posts = []; 
       return renderApp();
     }
 
@@ -122,6 +124,7 @@ const renderApp = () => {
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
       appEl, user
+
     });
   }
 
@@ -132,4 +135,5 @@ const renderApp = () => {
   }
 };
 
-goToPage(POSTS_PAGE);
+
+goToPage(POSTS_PAGE, {onAddPostClick});
