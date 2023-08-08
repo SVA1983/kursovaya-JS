@@ -19,10 +19,10 @@ export function getPosts({ token, }) {
 
       return response.json(); 
     })
-    .then((data) => {
-      return data.posts.map((post) => {  console.log(post.user);
+    .then((data) => { 
+      return data.posts.map((post) => {  
         return {
-          // id ?
+          id: post.user.id,
           imageUrl: post.imageUrl,
           date: "2023-04-04T09:51:47.187Z",
           description: post.description,
@@ -31,6 +31,7 @@ export function getPosts({ token, }) {
           userImage: post.imageUrl,
           likes: post.likes,
           isLiked: false
+          
         }
       })
       
@@ -82,7 +83,7 @@ export function uploadImage({ file }) {
   }).then((response) => {
     return response.json();
   });
-}
+};
 
 
 export const onAddPostClick = ({description, imageUrl, token }) => {
@@ -98,4 +99,44 @@ export const onAddPostClick = ({description, imageUrl, token }) => {
           Authorization: token,
       },      
     }); 
+};
+
+
+export function getPostsUser( {token, id}) {  
+  return fetch("https://wedev-api.sky.pro/api/v1/vlad-smirnov/instapro/user-posts/" + id, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => { 
+      if (response.status === 401) {
+        throw new Error("Нет авторизации");
+      }
+      
+
+      return response.json(); 
+    })
+    .then((data) => { 
+      return data.posts.map((post) => {  
+        return {
+          id: post.user.id,
+          imageUrl: post.imageUrl,
+          date: "2023-04-04T09:51:47.187Z",
+          description: post.description,
+          name: post.user.name,
+          login: post.user.login,
+          userImage: post.imageUrl,
+          likes: post.likes,
+          isLiked: false,
+          user: {
+            id: post.user.id,
+          }
+        }
+      })
+      
+        
+    });
 }
+
+

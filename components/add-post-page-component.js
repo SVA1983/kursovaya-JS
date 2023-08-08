@@ -1,13 +1,16 @@
-import  {onAddPostClick, uploadImage}  from "../api.js";
-import {getToken} from "../index.js";
-export function renderAddPostPageComponent({ appEl, }) {
+import  {onAddPostClick, uploadImage,}  from "../api.js";
+import {getToken, goToPage} from "../index.js";
+import { POSTS_PAGE} from "../routes.js";
+
+
+export function renderAddPostPageComponent({ appEl, page}) {
   let imageUrl = "";
   const render = () => {
     // TODO: Реализовать страницу добавления поста
     const appHtml = `
     <div class="page-container">
       <div class="header-container"></div>
-      <div class="form">
+      <div class="form">x
         <h3 class="form-title">Добавить пост</h3>
         
           <div class="upload-image-container">
@@ -71,20 +74,20 @@ export function renderAddPostPageComponent({ appEl, }) {
     
 
     document.getElementById("add-button").addEventListener("click", () => {
-      const addImg = document.querySelector(".file-upload-input");
+      
       const addTextDescription = document.getElementById("add-text");
       onAddPostClick({
         description: addTextDescription.value,
         imageUrl,
         token: getToken() 
-      })
-      .then((response) => { console.log(response);
-        
-      }).catch((err) => {
-        
-      });
+      }); 
+      goToPage(POSTS_PAGE);
+      
     });
   };
 
   render();
-}
+  
+};
+
+
