@@ -8,6 +8,7 @@ import {
   LOADING_PAGE,
   POSTS_PAGE,
   USER_POSTS_PAGE,
+  LIKE_PAGE,
 } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
@@ -21,6 +22,7 @@ export let user = getUserFromLocalStorage();
 
 export let page = null;
 export let posts = [];
+
 
 
 export const getToken = () => {
@@ -45,6 +47,7 @@ export const goToPage = (newPage, data) => {
       ADD_POSTS_PAGE,
       USER_POSTS_PAGE,
       LOADING_PAGE,
+      LIKE_PAGE,
     ].includes(newPage)
   ) {
     if (newPage === ADD_POSTS_PAGE) {
@@ -61,6 +64,7 @@ export const goToPage = (newPage, data) => {
         .then((newPosts) => { 
           page = POSTS_PAGE;
           
+          
           posts = newPosts; 
           renderApp();
         })
@@ -69,18 +73,35 @@ export const goToPage = (newPage, data) => {
           goToPage(POSTS_PAGE);
         });
     }
+    if (newPage === LIKE_PAGE) { 
+
+      return getPosts({ token: getToken() })
+        .then(() => { 
+          return getPosts({ token: getToken() })
+        .then((newPosts) => { 
+          page = POSTS_PAGE;
+          
+          
+          posts = newPosts; 
+          renderApp();
+        }) 
+      })
+        .catch((error) => {
+          console.log(error);
+          goToPage(POSTS_PAGE);
+        });
+    }
 
     if (newPage === USER_POSTS_PAGE) {
-
-      // TODO: реализовать получение постов юзера из API
-     
-      getPostsUser({token: getToken(), id: data.userId}).
-      then((userPost) =>  {
-        page = USER_POSTS_PAGE;
-        posts = userPost; 
-        renderApp()
-      })
-     
+      
+        getPostsUser({token: getToken(), id: data.userId}).
+        then((userPost) =>  {
+          page = USER_POSTS_PAGE;
+          posts = userPost; 
+          renderApp()
+        })
+        
+      
       
     }
 
@@ -132,7 +153,7 @@ const renderApp = () => {
 
   if (page === USER_POSTS_PAGE) {
     // TODO: реализовать страницу фотографию пользвателя
-   console.log(posts);
+   
     return renderUserPostComponent ({ appEl, posts, })
   }
 };

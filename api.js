@@ -22,15 +22,23 @@ export function getPosts({ token, }) {
     .then((data) => { 
       return data.posts.map((post) => {  
         return {
-          id: post.user.id,
+          id: post.id,
           imageUrl: post.imageUrl,
           date: "2023-04-04T09:51:47.187Z",
           description: post.description,
-          name: post.user.name,
-          login: post.user.login,
-          userImage: post.imageUrl,
-          likes: post.likes,
-          isLiked: false
+          user: {
+            id: post.user.id,
+            name: post.user.name,
+            login: post.user.login,
+            imageUrl: post.user.imageUrl
+          },
+          likes: [
+            {
+              id: post.user.id,
+              name: post.user.name,
+            },
+          ],
+          isLiked: post.isLiked
           
         }
       })
@@ -56,6 +64,8 @@ export function registerUser({ login, password, name, imageUrl }) {
     return response.json();
   });
 }
+
+
 
 export function loginUser({ login, password }) {
   return fetch(baseHost + "/api/user/login", {
@@ -120,23 +130,62 @@ export function getPostsUser( {token, id}) {
     .then((data) => { 
       return data.posts.map((post) => {  
         return {
-          id: post.user.id,
+          id: post.id,
           imageUrl: post.imageUrl,
           date: "2023-04-04T09:51:47.187Z",
           description: post.description,
-          name: post.user.name,
-          login: post.user.login,
-          userImage: post.imageUrl,
-          likes: post.likes,
-          isLiked: false,
           user: {
             id: post.user.id,
-          }
+            name: post.user.name,
+            login: post.user.login,
+            imageUrl: post.user.imageUrl
+          },
+          likes: [
+            {
+              id: post.user.id,
+              name: post.user.name,
+            },
+          ],
+
+          isLiked: post.isLiked
+          
         }
       })
       
         
     });
-}
+}; 
+export function getLikePost({isLiked, token, id}) {
+  return fetch(postsHost + "/" + id + "/like", 
+    {
+      method: "POST",
+      body: JSON.stringify(
+      { 
+        isLiked: isLiked,
+        
+      }),
+      headers: {
+        Authorization: token,
+    },      
+  }); 
+};
+
+export function delLikePost({isLiked, token, id}) {
+  return fetch(postsHost + "/" + id + "/dislike", 
+    {
+      method: "POST",
+      body: JSON.stringify(
+      { 
+        isLiked,
+        
+      }),
+      headers: {
+        Authorization: token,
+    },      
+  }); 
+};
+
+  
+  
 
 
