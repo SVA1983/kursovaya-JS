@@ -13,7 +13,7 @@ export const likeFunction = (render, element) => {
       
       
      
-    //   let isLiked = false;
+   
       
       likeEl.addEventListener("click", (event) => {  
         event.stopPropagation();
@@ -26,8 +26,10 @@ export const likeFunction = (render, element) => {
           if (likeEl.classList != "like-button active") 
           { console.log(likeEl.classList);
               let isLiked = true;
+              
+             
               likeEl.classList.add("active");
-              getLikePost({isLiked: isLiked, token: getToken(), id: id});
+              getLikePost({isLiked: isLiked, token: getToken(), id: id,});
               
              
               
@@ -49,6 +51,7 @@ export const likeFunction = (render, element) => {
               
               
           }; 
+          getPosts({token: getToken()})
           
           goToPage(element);
           

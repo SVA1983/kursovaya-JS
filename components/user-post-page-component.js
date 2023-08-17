@@ -1,4 +1,4 @@
-import { USER_POSTS_PAGE, POSTS_PAGE, LIKE_PAGE} from "../routes.js";
+import { USER_POSTS_PAGE, POSTS_PAGE, LIKE_PAGE, USER_LIKE_PAGE} from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { goToPage, getToken} from "../index.js";
 import { restrictionRenderPage } from "./restriction-post-page.js";
@@ -24,7 +24,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
             <img class="post-image" src="${post.imageUrl}">
           </div>
           <div class="post-likes">
-            <button data-id="${post.id}" data-index="${post.index}" class="like-button">
+            <button data-id="${post.id}" class="${post.isLiked ? "like-button active" : "like-button"}">
             <img src=${post.isLiked ? "./assets/images/like-active.svg" : "./assets/images/like-not-active.svg"} >
             </button>
             <p class="post-likes-text">
@@ -41,10 +41,12 @@ export function renderUserPostComponent ({ appEl, posts,}) {
         </li>                
       </ul>
     </div>`
-    })
-             ; 
+    });
+             
 
   appEl.innerHTML = appHtml;
+
+  likeFunction(render, LIKE_PAGE);
 
   
   
@@ -58,7 +60,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,
       }); 
-    }); likeFunction(render, );
+    }); 
   }
   
 }; render ();  

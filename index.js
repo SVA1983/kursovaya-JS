@@ -1,4 +1,4 @@
-import { getPosts, onAddPostClick, getPostsUser } from "./api.js";
+import { getPosts, onAddPostClick, getPostsUser, getLikePost, delLikePost } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import { renderUserPostComponent } from "./components/user-post-page-component.js";
@@ -9,6 +9,7 @@ import {
   POSTS_PAGE,
   USER_POSTS_PAGE,
   LIKE_PAGE,
+  USER_LIKE_PAGE,
 } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
@@ -48,6 +49,7 @@ export const goToPage = (newPage, data) => {
       USER_POSTS_PAGE,
       LOADING_PAGE,
       LIKE_PAGE,
+      USER_LIKE_PAGE,
     ].includes(newPage)
   ) {
     if (newPage === ADD_POSTS_PAGE) {
@@ -83,6 +85,7 @@ export const goToPage = (newPage, data) => {
           
           
           posts = newPosts; 
+          console.log(posts);
           renderApp();
         }) 
       })
@@ -91,6 +94,20 @@ export const goToPage = (newPage, data) => {
           goToPage(POSTS_PAGE);
         });
     }
+
+    // if (newPage === USER_LIKE_PAGE) {
+    //   getPosts({ token: getToken() }).
+    //     then((userPost) =>  {
+    //       page = USER_POSTS_PAGE;
+    //       posts = userPost; 
+    //       renderApp()
+    //     })
+        
+      
+      
+    // }
+
+    
 
     if (newPage === USER_POSTS_PAGE) {
       

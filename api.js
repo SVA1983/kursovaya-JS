@@ -32,12 +32,7 @@ export function getPosts({ token, }) {
             login: post.user.login,
             imageUrl: post.user.imageUrl
           },
-          likes: [
-            {
-              id: post.user.id,
-              name: post.user.name,
-            },
-          ],
+          likes: post.likes,
           isLiked: post.isLiked
           
         }
@@ -155,13 +150,15 @@ export function getPostsUser( {token, id}) {
         
     });
 }; 
-export function getLikePost({isLiked, token, id}) {
+export function getLikePost({isLiked, token, id, }) {
   return fetch(postsHost + "/" + id + "/like", 
     {
       method: "POST",
       body: JSON.stringify(
       { 
         isLiked: isLiked,
+        
+        
         
       }),
       headers: {
@@ -170,13 +167,15 @@ export function getLikePost({isLiked, token, id}) {
   }); 
 };
 
-export function delLikePost({isLiked, token, id}) {
+export function delLikePost({isLiked, token, id, }) {
   return fetch(postsHost + "/" + id + "/dislike", 
     {
       method: "POST",
       body: JSON.stringify(
       { 
-        isLiked,
+        isLiked: isLiked ,
+        
+        
         
       }),
       headers: {
