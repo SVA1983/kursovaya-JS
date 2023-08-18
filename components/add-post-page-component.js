@@ -54,7 +54,7 @@ export function renderAddPostPageComponent({ appEl, page}) {
   returnButton.addEventListener("click", () => {
     goToPage(POSTS_PAGE);
   });
-  
+
   const fileInputElement = document.querySelector(".file-upload-input");
 
     fileInputElement?.addEventListener("change", () => {
@@ -74,8 +74,10 @@ export function renderAddPostPageComponent({ appEl, page}) {
     document
       .querySelector(".file-upload-remove-button")
       ?.addEventListener("click", () => {
+        
+        
         imageUrl = "";
-        // onImageUrlChange(imageUrl);
+        
         render();
       });
 
@@ -84,12 +86,23 @@ export function renderAddPostPageComponent({ appEl, page}) {
     document.getElementById("add-button").addEventListener("click", () => {
       
       const addTextDescription = document.getElementById("add-text");
+      if (!addTextDescription.value) {
+        alert("Введите описание");
+        return;
+        
+      }
+      if (!imageUrl) {
+        alert("Добавте фотографию");
+        return;
+      }
+      else {
       onAddPostClick({
         description: addTextDescription.value,
         imageUrl,
         token: getToken() 
       }); 
       goToPage(POSTS_PAGE);
+    }
       
     });
   };
