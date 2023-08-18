@@ -10,7 +10,9 @@ export function renderAddPostPageComponent({ appEl, page}) {
     const appHtml = `
     <div class="page-container">
       <div class="header-container"></div>
-      <div class="form">x
+      <div class="form">
+      <img class="return-button" src="assets/images/pngwing.com(1).png" alt="">
+      
         <h3 class="form-title">Добавить пост</h3>
         
           <div class="upload-image-container">
@@ -47,6 +49,12 @@ export function renderAddPostPageComponent({ appEl, page}) {
     </div>
   `;
   appEl.innerHTML = appHtml;
+
+  const returnButton = document.querySelector(".return-button");
+  returnButton.addEventListener("click", () => {
+    goToPage(POSTS_PAGE);
+  });
+  
   const fileInputElement = document.querySelector(".file-upload-input");
 
     fileInputElement?.addEventListener("change", () => {
