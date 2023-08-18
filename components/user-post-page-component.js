@@ -3,23 +3,41 @@ import { renderHeaderComponent } from "./header-component.js";
 import { goToPage, getToken} from "../index.js";
 import { restrictionRenderPage } from "./restriction-post-page.js";
 import { likeFunction } from "./like-function.js";
+import { delPost } from "./del-post-page.js";
 
 
 export function renderUserPostComponent ({ appEl, posts,}) {
   if(!getToken()) {  
     return restrictionRenderPage({ appEl,});
   }
-  else { const render = () => { 
+  else { 
+    const render = () => { 
+
+      if (posts.length === 0 ) { 
+        const appHtml =  `<div class="page-container">
+          <div class="header-container"></div>
+          <ul class="posts">   
+          </ul>
+        </div>`;
+      
+        appEl.innerHTML = appHtml;
+      }
+      else {
 
   const appHtml = posts.map((post) => {
     return  `<div class="page-container">
       <div class="header-container"></div>
       <ul class="posts">
         <li class="post">
-          <div class="post-header" data-user-id=${post.user.id}>
-              <img src="${post.user.imageUrl}" class="post-header__user-image">
-              <p class="post-header__user-name">${post.user.name}</p>
-          </div>
+        <div class="post-header" data-user-id=${post.user.id}>
+        <div class="user-ind-box">
+          <img src="${post.user.imageUrl}" class="post-header__user-image">
+          <p class="post-header__user-name">${post.user.name}</p>
+        </div>
+            <div>
+            <p data-id="${post.id}" class="del-post">${getToken() ? "..." : ""}</p>
+            </div>
+        </div>
           <div class="post-image-container">
             <img class="post-image" src="${post.imageUrl}">
           </div>
@@ -45,6 +63,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
              
 
   appEl.innerHTML = appHtml;
+      };
 
   
 
@@ -57,6 +76,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
    
   for (let userEl of document.querySelectorAll(".post-header")) {
     likeFunction(render, USER_POSTS_PAGE, {userId: userEl.dataset.userId,});
+    delPost(USER_POSTS_PAGE, {userId: userEl.dataset.userId,});
     userEl.addEventListener("click", () => {
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,

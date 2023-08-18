@@ -179,6 +179,17 @@ export function delLikePost({isLiked, token, id, }) {
   }); 
 };
 
+export function delPostUser({token, id}) {
+  return fetch(postsHost + "/" + id,
+  {
+  method: "DELETE",
+  headers: {
+    Authorization: token,
+  }
+
+  })
+}
+
   
   
 
