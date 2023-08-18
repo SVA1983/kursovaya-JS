@@ -1,8 +1,8 @@
-import {getLikePost, getPosts, delLikePost} from "../api.js";
+import {getLikePost, delLikePost} from "../api.js";
 import { LIKE_PAGE} from "../routes.js";
-import { posts, getToken, goToPage} from "../index.js";
+import { posts, getToken, goToPage, renderApp, } from "../index.js";
 
-export const likeFunction = (render, element) => {
+export const likeFunction = (render, element, userId) => {
     for (let likeEl of document.querySelectorAll(".like-button")) {
       const id = likeEl.dataset.id;  
       
@@ -24,7 +24,7 @@ export const likeFunction = (render, element) => {
         
           
           if (likeEl.classList != "like-button active") 
-          { console.log(likeEl.classList);
+          { 
               let isLiked = true;
               
              
@@ -39,7 +39,7 @@ export const likeFunction = (render, element) => {
               
           }
           else if (likeEl.classList == "like-button active")
-          {console.log(likeEl.classList);
+          {
               let isLiked = false;
               likeEl.classList.remove("active");
               delLikePost({isLiked: isLiked, token: getToken(), id: id});
@@ -50,10 +50,9 @@ export const likeFunction = (render, element) => {
               
               
               
-          }; 
-          getPosts({token: getToken()})
+          }; goToPage(element, userId)
+
           
-          goToPage(element);
           
           
           

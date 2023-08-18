@@ -135,12 +135,7 @@ export function getPostsUser( {token, id}) {
             login: post.user.login,
             imageUrl: post.user.imageUrl
           },
-          likes: [
-            {
-              id: post.user.id,
-              name: post.user.name,
-            },
-          ],
+          likes: post.likes,
 
           isLiked: post.isLiked
           

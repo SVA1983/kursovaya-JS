@@ -54,7 +54,7 @@ export const goToPage = (newPage, data) => {
   ) {
     if (newPage === ADD_POSTS_PAGE) {
       // Если пользователь не авторизован, то отправляем его на авторизацию перед добавлением поста
-      page = user ? ADD_POSTS_PAGE : AUTH_PAGE; console.log(0);
+      page = user ? ADD_POSTS_PAGE : AUTH_PAGE;
       return renderApp();
     }
 
@@ -85,38 +85,51 @@ export const goToPage = (newPage, data) => {
           
           
           posts = newPosts; 
-          console.log(posts);
+          
           renderApp();
+
         }) 
       })
         .catch((error) => {
           console.log(error);
           goToPage(POSTS_PAGE);
         });
-    }
+    }; 
 
-    // if (newPage === USER_LIKE_PAGE) {
-    //   getPosts({ token: getToken() }).
-    //     then((userPost) =>  {
-    //       page = USER_POSTS_PAGE;
-    //       posts = userPost; 
-    //       renderApp()
-    //     })
-        
-      
-      
-    // }
+    if (newPage === USER_LIKE_PAGE) {
+      return getPosts({ token: getToken() })
+        .then(() => { 
+          return getPosts({ token: getToken() })
+        .then((newPosts) => { 
+          page = USER_POSTS_PAGE;
+          
+          
+          posts = newPosts; 
+          
+          
+          renderApp();
+          
+
+        }) 
+      })
+        .catch((error) => {
+          console.log(error);
+          goToPage(POSTS_PAGE);
+        }) 
+    } 
 
     
 
-    if (newPage === USER_POSTS_PAGE) {
-      
-        getPostsUser({token: getToken(), id: data.userId}).
+    if (newPage === USER_POSTS_PAGE) { 
+      return getPostsUser({token: getToken(), id: data.userId}).
+      then(() => {
+      return getPostsUser({token: getToken(), id: data.userId}).
         then((userPost) =>  {
           page = USER_POSTS_PAGE;
           posts = userPost; 
           renderApp()
         })
+      })
         
       
       
@@ -131,7 +144,7 @@ export const goToPage = (newPage, data) => {
   throw new Error("страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({
@@ -154,7 +167,7 @@ const renderApp = () => {
     });
   }
 
-  if (page === ADD_POSTS_PAGE) { console.log(2);
+  if (page === ADD_POSTS_PAGE) { 
     return renderAddPostPageComponent({
       appEl,
       

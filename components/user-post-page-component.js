@@ -46,7 +46,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
 
   appEl.innerHTML = appHtml;
 
-  likeFunction(render, LIKE_PAGE);
+  
 
   
   
@@ -56,6 +56,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
   });
    
   for (let userEl of document.querySelectorAll(".post-header")) {
+    likeFunction(render, USER_POSTS_PAGE, {userId: userEl.dataset.userId,});
     userEl.addEventListener("click", () => {
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,
