@@ -3,7 +3,7 @@ import {getToken, goToPage} from "../index.js";
 import { POSTS_PAGE} from "../routes.js";
 
 
-export function renderAddPostPageComponent({ appEl, }) {
+export function renderAddPostPageComponent({ appEl, page}) {
   let imageUrl = "";
   const render = () => {
     // TODO: Реализовать страницу добавления поста
@@ -106,7 +106,9 @@ export function renderAddPostPageComponent({ appEl, }) {
       
     });
   };
+
   render();
+  
 };
 
 

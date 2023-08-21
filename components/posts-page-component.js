@@ -1,14 +1,23 @@
-import { USER_POSTS_PAGE,  LIKE_PAGE} from "../routes.js";
+import { USER_POSTS_PAGE, LIKE_PAGE} from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken} from "../index.js";
 import { likeFunction } from "./like-function.js";
 import { delPost } from "./del-post-page.js";
 
+
+
+
+
+
 export function renderPostsPageComponent({ appEl,}) {  
   // TODO: реализовать рендер постов из api
   
 const render = () => { 
+ 
 
+
+  
+  
   if (posts.length === 0 ) { 
     const appHtml =  `<div class="page-container">
       <div class="header-container"></div>
@@ -46,6 +55,7 @@ const render = () => {
           </div>
           <p class="post-text">
             <span class="user-name">${post.user.name}</span>
+            <br>
             ${post.description}
           </p>
           <p class="post-date">
@@ -58,10 +68,18 @@ const render = () => {
             
     appEl.innerHTML = appHtml; 
   };   
+ 
+
+
   
 ; 
 likeFunction(render, LIKE_PAGE);
 delPost(LIKE_PAGE)
+
+
+
+
+  
 
   renderHeaderComponent({
     element: document.querySelector(".header-container"),

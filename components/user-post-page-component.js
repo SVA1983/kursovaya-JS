@@ -51,6 +51,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
           </div>
           <p class="post-text">
             <span class="user-name">${post.user.name}</span>
+            <br>
             ${post.description}
           </p>
           <p class="post-date">
@@ -61,6 +62,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
     </div>`
     });
              
+
   appEl.innerHTML = appHtml;
       };
 
