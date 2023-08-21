@@ -1,6 +1,8 @@
 import { loginUser, registerUser } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
+import { goToPage} from "../index.js";
+import { POSTS_PAGE} from "../routes.js";
 
 export function renderAuthPageComponent({ appEl, setUser }) {
   let isLoginMode = true;
@@ -11,6 +13,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
       <div class="page-container">
           <div class="header-container"></div>
           <div class="form">
+          <img class="return-button" src="assets/images/pngwing.com(1).png" alt="">
               <h3 class="form-title">
                 ${
                   isLoginMode
@@ -53,6 +56,11 @@ export function renderAuthPageComponent({ appEl, setUser }) {
 `;
 
     appEl.innerHTML = appHtml;
+
+    const returnButton = document.querySelector(".return-button");
+  returnButton.addEventListener("click", () => {
+    goToPage(POSTS_PAGE);
+  });
 
     // Не вызываем перерендер, чтобы не сбрасывалась заполненная форма
     // Точечно обновляем кусочек дом дерева

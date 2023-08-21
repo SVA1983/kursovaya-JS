@@ -52,6 +52,7 @@
   align-items: center;
   margin-bottom: 10px;
   cursor: pointer;
+  justify-content: space-between;
 }
 
 .post-header__user-image {
@@ -147,6 +148,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  
 }
 
 .form-title {
@@ -195,4 +197,29 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
+}
+.authorization {
+  text-decoration: underline;
+}
+.restriction-box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 200px;
+}
+
+.del-post {
+  
+ 
+}
+
+.user-ind-box {
+  display: flex;
+    align-items: center;
+
+}
+.return-button {
+  background-image: url(assets/images/pngwing.com\(1\).png);
+  width: 15px;
+  height: 15px;
+  
 }

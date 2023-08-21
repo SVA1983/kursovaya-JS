@@ -1,25 +1,48 @@
+
+import { ru } from 'date-fns/locale';
+import { formatDistance } from "date-fns";
+import { formatDate } from "./components/date.js";
+
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "vlad-smirnov";
 const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
-export function getPosts({ token }) {
+export function getPosts({ token, }) {
   return fetch(postsHost, {
     method: "GET",
     headers: {
       Authorization: token,
     },
   })
-    .then((response) => {
+    .then((response) => { 
       if (response.status === 401) {
         throw new Error("Нет авторизации");
       }
 
-      return response.json();
+      return response.json(); 
     })
-    .then((data) => {
-      return data.posts;
+    .then((data) => { 
+      return data.posts.map((post) => {  
+        return {
+          id: post.id,
+          imageUrl: post.imageUrl,
+          createdAt: formatDistance (new Date(), new Date(post.createdAt), {locale: ru}) + " назад",
+          description: post.description,
+          user: {
+            id: post.user.id,
+            name: post.user.name,
+            login: post.user.login,
+            imageUrl: post.user.imageUrl
+          },
+          likes: post.likes,
+          isLiked: post.isLiked
+          
+        }
+      })
+      
+        
     });
 }
 
@@ -40,6 +63,8 @@ export function registerUser({ login, password, name, imageUrl }) {
     return response.json();
   });
 }
+
+
 
 export function loginUser({ login, password }) {
   return fetch(baseHost + "/api/user/login", {
@@ -67,4 +92,109 @@ export function uploadImage({ file }) {
   }).then((response) => {
     return response.json();
   });
+};
+
+
+export const onAddPostClick = ({description, imageUrl, token }) => {
+  return fetch(postsHost,
+    {
+        method: "POST",
+        body: JSON.stringify(
+        { 
+          description: description,
+            imageUrl
+        }),
+        headers: {
+          Authorization: token,
+      },      
+    }); 
+};
+
+
+export function getPostsUser( {token, id}) {  
+  return fetch("https://wedev-api.sky.pro/api/v1/vlad-smirnov/instapro/user-posts/" + id, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => { 
+      if (response.status === 401) {
+        throw new Error("Нет авторизации");
+      }
+      
+
+      return response.json(); 
+    })
+    .then((data) => { 
+      return data.posts.map((post) => {  
+        return {
+          id: post.id,
+          imageUrl: post.imageUrl,
+          createdAt: post.date,
+          description: post.description,
+          user: {
+            id: post.user.id,
+            name: post.user.name,
+            login: post.user.login,
+            imageUrl: post.user.imageUrl
+          },
+          likes: post.likes,
+
+          isLiked: post.isLiked
+          
+        }
+      })
+      
+        
+    });
+}; 
+export function getLikePost({isLiked, token, id, }) {
+  return fetch(postsHost + "/" + id + "/like", 
+    {
+      method: "POST",
+      body: JSON.stringify(
+      { 
+        isLiked: isLiked,
+        
+        
+        
+      }),
+      headers: {
+        Authorization: token,
+    },      
+  }); 
+};
+
+export function delLikePost({isLiked, token, id, }) {
+  return fetch(postsHost + "/" + id + "/dislike", 
+    {
+      method: "POST",
+      body: JSON.stringify(
+      { 
+        isLiked: isLiked ,
+        
+        
+        
+      }),
+      headers: {
+        Authorization: token,
+    },      
+  }); 
+};
+
+export function delPostUser({token, id}) {
+  return fetch(postsHost + "/" + id,
+  {
+  method: "DELETE",
+  headers: {
+    Authorization: token,
+  }
+
+  })
 }
+
+  
+  
+
+
