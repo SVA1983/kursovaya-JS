@@ -1,7 +1,6 @@
 
 import { ru } from 'date-fns/locale';
 import { formatDistance } from "date-fns";
-import { formatDate } from "./components/date.js";
 
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
@@ -131,7 +130,7 @@ export function getPostsUser( {token, id}) {
         return {
           id: post.id,
           imageUrl: post.imageUrl,
-          createdAt: post.date,
+          createdAt: formatDistance (new Date(), new Date(post.createdAt), {locale: ru}) + " назад",
           description: post.description,
           user: {
             id: post.user.id,
