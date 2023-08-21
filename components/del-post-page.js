@@ -1,6 +1,5 @@
-import {getLikePost, delLikePost, delPostUser} from "../api.js";
-import { LIKE_PAGE} from "../routes.js";
-import { posts, getToken, goToPage, renderApp, } from "../index.js";
+import { delPostUser} from "../api.js";
+import { getToken, goToPage,  } from "../index.js";
 
 export function delPost(element, userId) {
 

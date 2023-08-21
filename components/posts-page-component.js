@@ -1,8 +1,7 @@
-import { USER_POSTS_PAGE, POSTS_PAGE, LIKE_PAGE} from "../routes.js";
+import { USER_POSTS_PAGE, LIKE_PAGE} from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken} from "../index.js";
 import { likeFunction } from "./like-function.js";
-import { getLikePost, getPosts, delPostUser } from "../api.js";
 import { delPost } from "./del-post-page.js";
 
 
@@ -56,6 +55,7 @@ const render = () => {
           </div>
           <p class="post-text">
             <span class="user-name">${post.user.name}</span>
+            <br>
             ${post.description}
           </p>
           <p class="post-date">

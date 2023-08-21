@@ -1,4 +1,4 @@
-import { getPosts, onAddPostClick, getPostsUser, getLikePost, delLikePost } from "./api.js";
+import { getPosts, onAddPostClick, getPostsUser,  } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import { renderUserPostComponent } from "./components/user-post-page-component.js";

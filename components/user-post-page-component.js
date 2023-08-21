@@ -1,4 +1,4 @@
-import { USER_POSTS_PAGE, POSTS_PAGE, LIKE_PAGE, USER_LIKE_PAGE} from "../routes.js";
+import { USER_POSTS_PAGE, } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { goToPage, getToken} from "../index.js";
 import { restrictionRenderPage } from "./restriction-post-page.js";
@@ -51,10 +51,11 @@ export function renderUserPostComponent ({ appEl, posts,}) {
           </div>
           <p class="post-text">
             <span class="user-name">${post.user.name}</span>
+            <br>
             ${post.description}
           </p>
           <p class="post-date">
-            дата
+          ${post.createdAt}
           </p>
         </li>                
       </ul>
