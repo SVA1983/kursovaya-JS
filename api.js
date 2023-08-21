@@ -1,4 +1,5 @@
 
+import { formatDate } from "./components/date.js";
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "vlad-smirnov";
@@ -24,7 +25,7 @@ export function getPosts({ token, }) {
         return {
           id: post.id,
           imageUrl: post.imageUrl,
-          date: "2023-04-04T09:51:47.187Z",
+          createdAt: formatDate( new Date()),
           description: post.description,
           user: {
             id: post.user.id,
@@ -127,7 +128,7 @@ export function getPostsUser( {token, id}) {
         return {
           id: post.id,
           imageUrl: post.imageUrl,
-          date: "2023-04-04T09:51:47.187Z",
+          createdAt: post.date,
           description: post.description,
           user: {
             id: post.user.id,

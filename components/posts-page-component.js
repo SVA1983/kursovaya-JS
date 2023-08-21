@@ -59,7 +59,7 @@ const render = () => {
             ${post.description}
           </p>
           <p class="post-date">
-            дата
+          ${post.createdAt}
           </p>
         </li>                
       </ul>
