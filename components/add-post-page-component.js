@@ -97,7 +97,11 @@ export function renderAddPostPageComponent({ appEl, page}) {
       }
       else {
       onAddPostClick({
-        description: addTextDescription.value,
+        description: addTextDescription.value.
+        replaceAll("&", "&amp;").
+        replaceAll("<", "&lt;").
+        replaceAll(">", "&gt;").
+        replaceAll('"', "&quot;"),
         imageUrl,
         token: getToken() 
       });
