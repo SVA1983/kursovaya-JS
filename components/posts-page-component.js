@@ -39,7 +39,7 @@ const render = () => {
             <p class="post-header__user-name">${post.user.name}</p>
           </div>
               <div>
-                <p data-id="${post.id}" class="del-post">${getToken() ? "..." : ""}</p>
+                <img data-id="${post.id}" class="del-post"src=${getToken() ? "assets/images/icons8-добавить-корзину-24.png" : ""} >
               </div>
           </div>
           <div class="post-image-container">
