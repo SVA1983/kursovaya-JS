@@ -107,7 +107,6 @@ export function renderAddPostPageComponent({ appEl, page}) {
       });
       goToPage(POSTS_PAGE);
     };
-      
     });
   };
 
