@@ -1,9 +1,10 @@
 import { USER_POSTS_PAGE, } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { goToPage, getToken} from "../index.js";
+import { goToPage, getToken, user} from "../index.js";
 import { restrictionRenderPage } from "./restriction-post-page.js";
 import { likeFunction } from "./like-function.js";
 import { delPost } from "./del-post-page.js";
+import { loginUser } from "../api.js";
 
 
 export function renderUserPostComponent ({ appEl, posts,}) {
@@ -35,7 +36,7 @@ export function renderUserPostComponent ({ appEl, posts,}) {
           <p class="post-header__user-name">${post.user.name}</p>
         </div>
             <div>
-            <p data-id="${post.id}" class="del-post">${getToken() ? "..." : ""}</p>
+            <img data-id="${post.id}" class="del-post"src=${getToken() ? "assets/images/icons8-добавить-корзину-24.png" : ""} >
             </div>
         </div>
           <div class="post-image-container">
