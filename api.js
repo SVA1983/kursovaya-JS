@@ -107,7 +107,7 @@ export const onAddPostClick = ({description, imageUrl, token }) => {
         headers: {
           Authorization: token,
       },      
-    }); 
+    })
 };
 
 

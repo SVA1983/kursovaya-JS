@@ -1,6 +1,6 @@
-import  {onAddPostClick, uploadImage,}  from "../api.js";
+import  {onAddPostClick, uploadImage, getPosts}  from "../api.js";
 import {getToken, goToPage} from "../index.js";
-import { POSTS_PAGE} from "../routes.js";
+import { ADD_POSTS_PAGE, POSTS_PAGE} from "../routes.js";
 
 
 export function renderAddPostPageComponent({ appEl, page}) {
@@ -97,12 +97,16 @@ export function renderAddPostPageComponent({ appEl, page}) {
       }
       else {
       onAddPostClick({
-        description: addTextDescription.value,
+        description: addTextDescription.value.
+        replaceAll("&", "&amp;").
+        replaceAll("<", "&lt;").
+        replaceAll(">", "&gt;").
+        replaceAll('"', "&quot;"),
         imageUrl,
         token: getToken() 
-      }); 
+      });
       goToPage(POSTS_PAGE);
-    }
+    };
       
     });
   };
